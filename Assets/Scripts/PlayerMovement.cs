@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -15,12 +16,18 @@ public class PlayerMovement : MonoBehaviour
     //private Vector2 moveDirection = Vector2.zero;
 
     private Rigidbody2D rb;
+    private PlayerInput playerInput;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.visible = false;
         //characterController = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody2D>();
+        playerInput = GetComponent<PlayerInput>();
+
+        PlayerInputActions playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        playerInputActions.Player.Jump.performed += Jump;
     }
 
     // Update is called once per frame
@@ -31,28 +38,38 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = new Vector2(Speed * Move, rb.velocity.y);
 
-        if (Input.GetButtonDown("Jump") && isJumping == false)
+        //if (Input.GetButtonDown("Jump") && isJumping == false)
+        //{
+        //    rb.AddForce(new Vector2(rb.velocity.x, JumpSpeed));
+        //    Debug.Log("jump");
+        //}
+    }
+    //using unity events
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (//Input.GetButtonDown("Jump")  &&
+            context.performed && isJumping == false)
         {
-            rb.AddForce(new Vector2(rb.velocity.x, JumpSpeed));
-            Debug.Log("jump");
+            Debug.Log("jump " + context.phase);
+            rb.AddForce(new Vector2(rb.velocity.x, JumpSpeed));            
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            isJumping = false;
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Ground"))
+    //    {
+    //        isJumping = false;
+    //    }
+    //}
 
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            isJumping = true;
-        }
-    }
+    //private void OnCollisionExit2D(Collision2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Ground"))
+    //    {
+    //        isJumping = true;
+    //    }
+    //}
 
     //void Locomotion()
     //{

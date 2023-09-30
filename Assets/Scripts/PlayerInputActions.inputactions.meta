@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6bb4ca8e0c27ed041910c04f94cf6c7e
+guid: 44d2e13a4b0d4f84a992a7e68a979efe
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -11,4 +11,4 @@ ScriptedImporter:
   generateWrapperCode: 1
   wrapperCodePath: 
   wrapperClassName: 
-  wrapperCodeNamespace: UnityEngine.InputSystem.Samples.InGameHints
+  wrapperCodeNamespace: 
