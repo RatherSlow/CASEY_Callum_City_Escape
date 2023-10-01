@@ -13,11 +13,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping;
     //public float gravity;
     private float Move;
-    private float Maxspeed;
-    //private Vector2 moveDirection = Vector2.zero;
+    private float Maxspeed;    
 
     private Rigidbody2D rb;
-    private PlayerInput playerInput;
+    private PlayerInput playerInput;    
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         //    Debug.Log("jump");
         //}
     }
+    
     //using unity events
     public void Jump(InputAction.CallbackContext context)
     {
