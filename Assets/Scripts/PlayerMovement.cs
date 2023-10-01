@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 //[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         PlayerInputActions playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Jump.performed += Jump;
+        playerInputActions.Player.Quit.performed += Quit;
     }
 
     // Update is called once per frame
@@ -55,21 +57,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //private void OnCollisionEnter2D(Collision2D other)
-    //{
-    //    if (other.gameObject.CompareTag("Ground"))
-    //    {
-    //        isJumping = false;
-    //    }
-    //}
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isJumping = false;
+        }
+    }
 
-    //private void OnCollisionExit2D(Collision2D other)
-    //{
-    //    if (other.gameObject.CompareTag("Ground"))
-    //    {
-    //        isJumping = true;
-    //    }
-    //}
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isJumping = true;
+        }
+    }
+
+    public void Quit(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log("quit " + context.phase);
+            Application.Quit();
+        }
+    }
 
     //void Locomotion()
     //{
